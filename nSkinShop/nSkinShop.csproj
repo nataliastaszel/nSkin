@@ -1,0 +1,173 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\nSkinShop.DataAccess\nSkinShop.DataAccess.csproj" />
+      <ProjectReference Include="..\nSkinShop.Models\nSkinShop.Models.csproj" />
+      <ProjectReference Include="..\nSkinShop.Utility\nSkinShop.Utility.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\Disable2fa.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\DownloadPersonalData.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\Email.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\ExternalLogins.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\GenerateRecoveryCodes.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\PersonalData.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\ResetAuthenticator.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\ShowRecoveryCodes.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\bootstrap-grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\bootstrap-reboot.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\bootstrap-utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\bootstrap.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_floating-labels.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_form-check.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_form-control.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_form-range.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_form-select.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_form-text.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_input-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_labels.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\forms\_validation.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_clearfix.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_color-bg.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_colored-links.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_focus-ring.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_icon-link.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_position.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_ratio.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_stacks.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_stretched-link.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_text-truncation.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_visually-hidden.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\helpers\_vr.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_alert.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_backdrop.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_banner.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_border-radius.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_box-shadow.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_breakpoints.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_caret.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_clearfix.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_color-mode.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_color-scheme.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_container.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_deprecate.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_gradients.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_image.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_list-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_lists.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_reset-text.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_resize.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_table-variants.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_text-truncate.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_transition.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\mixins\_visually-hidden.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\jasmine.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\mixins\_auto-import-of-variables-dark.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\mixins\_color-modes.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\mixins\_media-query-color-mode-full.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\mixins\_utilities.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\sass-true\register.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\sass-true\runner.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\tests\utilities\_api.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\utilities\_api.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\vendor\_rfs.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_accordion.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_alert.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_breadcrumb.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_button-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_card.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_carousel.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_close.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_containers.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_dropdown.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_functions.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_helpers.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_images.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_list-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_maps.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_mixins.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_modal.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_nav.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_navbar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_offcanvas.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_placeholders.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_popover.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_progress.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_reboot.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_root.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_spinners.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_tables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_toasts.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_tooltip.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_transitions.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_type.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_variables-dark.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\scss\_variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\site.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\site.css.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Edit.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\Upsert.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Privacy.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images\product\" />
+    </ItemGroup>
+
+</Project>

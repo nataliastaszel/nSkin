@@ -1,0 +1,43 @@
+﻿
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="container mt-5" style="width: 85%">
+    <div class="row justify-content-center">
+        <div class="card shadow-lg rounded-4 border-dark position-relative">
+            <div class="position-absolute start-50 bg-primary-subtle text-dark border border-dark rounded px-4 py-2"
+                 style="transform: translate(-50%, -50%);">
+                <h3 class="mb-0 fs-5 fw-normal">Manage Your Account</h3>
+            </div>
+
+            <div class="card-body">
+                <p class="text-muted mb-4 text-center mt-3">Update your account settings and profile information</p>
+
+                <div class="row">
+                    <div class="col-md-8 d-flex">
+                        <div class="card shadow-sm p-4 rounded-3 w-100">
+                            @RenderBody()
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex">
+                        <div class="card shadow-sm p-3 rounded-3 w-100">
+                            <partial name="_ManageNav"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

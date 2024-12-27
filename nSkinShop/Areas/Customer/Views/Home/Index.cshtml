@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@model IEnumerable<Product>
+
+<div class="row gx-4 gy-4 mx-4">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-3 card-product">
+            <div class="card shadow-sm rounded-4 border-dark bg-white h-100">
+
+                <div class="d-flex justify-content-center align-items-center p-3 rounded-top-4"
+                     style="background-color: #f0f0f0; border-bottom: 1px solid #ddd;">
+                    <img src="@product.ImageUrl"
+                         class="rounded-top-4"
+                         style="width: 100%; max-height: 130px; object-fit: contain;"
+                         alt="@product.Title"/>
+                </div>
+
+                <div class="card-body text-center p-3">
+                    <h6 class="text-primary small fw-bold text-uppercase mb-1">@product.Brand</h6>
+                    <p class="text-dark fw-semibold" style="font-size: 1rem;">@product.Title</p>
+                </div>
+
+                <div class="bg-light text-center py-2" style="border-top: 1px solid #ddd;">
+                    <span class="fs-5 fw-bold text-dark">@product.Price.ToString("C", new CultureInfo("en-US"))</span>
+                </div>
+
+                <div class="card-footer border-0 p-2 rounded-bottom-4 bg-light position-relative">
+                    <a asp-action="Details" asp-route-productId="@product.Id"
+                       class="btn btn-dark w-50 start-50 rounded-3 position-absolute p-1"
+                       style="transform: translate(-50%, -28%)">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,46 @@
+
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav custom-nav-pills flex-column">
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index" data-bs-toggle="tooltip" title="Profile">
+            <i class="bi bi-person-fill" aria-hidden="true"></i> 
+            <span class="d-none d-md-inline">Profile</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email" data-bs-toggle="tooltip" title="Email">
+            <i class="bi bi-envelope-fill" aria-hidden="true"></i> 
+            <span class="d-none d-md-inline">Email</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword" data-bs-toggle="tooltip" title="Change Password">
+            <i class="bi bi-key-fill" aria-hidden="true"></i>
+            <span class="d-none d-md-inline">Password</span>
+        </a>
+    </li>
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item">
+            <a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins" data-bs-toggle="tooltip" title="External Logins">
+                <i class="bi bi-plug" aria-hidden="true"></i>
+                <span class="d-none d-md-inline">External logins</span>
+            </a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication" data-bs-toggle="tooltip" title="Two-factor Authentication">
+            <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+            <span class="d-none d-md-inline">Two-factor authentication</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData" data-bs-toggle="tooltip" title="Personal Data">
+            <i class="bi bi-person-vcard-fill" aria-hidden="true"></i>
+            <span class="d-none d-md-inline">Personal data</span>
+        </a>
+    </li>
+</ul>

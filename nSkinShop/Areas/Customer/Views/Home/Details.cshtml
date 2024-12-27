@@ -1,0 +1,88 @@
+@using System.Globalization
+@model nSkinShop.Models.Product
+
+<div class="card shadow rounded-4 border-dark position-relative mt-5 mx-auto" style="width: 80%; justify-self: center;">
+    <div
+        class="position-absolute start-50 bg-primary-subtle text-dark border border-dark rounded px-4 py-2"
+        style="transform: translate(-50%, -50%);">
+        <h3 class="mb-0 fs-6 fw-normal">Product Details</h3>
+    </div>
+
+    <div class="card-body mt-4">
+        <div class="text-center mb-4">
+            <h4 class="fw-bold mb-1">@Model.Title</h4>
+            <p class="fw-semibold text-uppercase text-muted text-dark">@Model.Brand</p>
+        </div>
+
+        <div class="text-center mb-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Url.Content($"~/{Model.ImageUrl}")"
+                     class="img-fluid rounded"
+                     style="max-height: 200px; object-fit: contain;"
+                     alt="@Model.Title"/>
+            }
+            else
+            {
+                <img src="https://placehold.co/500x500"
+                     class="img-fluid rounded shadow-sm"
+                     style="max-height: 300px; object-fit: contain;"
+                     alt="Placeholder Image"/>
+            }
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" readonly class="form-control shadow" value="@Model.Category.Name"/>
+                    <label>Category</label>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" readonly class="form-control shadow"
+                           value="@Model.Price.ToString("C", new CultureInfo("en-US"))"/>
+                    <label>Price</label>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <textarea readonly class="form-control shadow" style="height: 100px;">@Model.Description</textarea>
+                    <label>Description</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered text-center">
+                <thead>
+                <tr class="table-light">
+                    <th>Capacity</th>
+                    <th>Price</th>
+                    <th>Price per 100ml</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>50ml</td>
+                    <td>@Model.Price.ToString("C", new CultureInfo("en-US"))</td>
+                    <td>@Model.Price100ml.ToString("C", new CultureInfo("en-US"))</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row g-3 mt-4">
+            <div class="col-6">
+                <a href=""
+                    class="btn btn-dark w-100">Add to Cart</a>
+            </div>
+            <div class="col-6">
+                <a asp-action="Index"
+                   class="btn btn-outline-primary w-100">Back to Products</a>
+            </div>
+        </div>
+    </div>
+</div>

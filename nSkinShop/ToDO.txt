@@ -1,0 +1,10 @@
+
+- sesje w logowaniu
+- Client site validation w formularzach
+- zrobić całego nava sticky
+
+
+Dodatkowo:
+--- dodanie sortowania i filtrowania w tabeli produktów
+--- dodanie sweet alert
+-- jak bede miec czas to zaimplementować format avif a nie jpeg

@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootswatch": "^5.3.3",
+    "sass": "^1.83.0"
+  },
+  "name": "nskin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nataliastaszel/nSkin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nataliastaszel/nSkin/issues"
+  },
+  "homepage": "https://github.com/nataliastaszel/nSkin#readme",
+  "description": ""
+}

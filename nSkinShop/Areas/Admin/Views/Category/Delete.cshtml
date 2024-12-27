@@ -1,0 +1,35 @@
+@model nSkinShop.Models.Category
+
+<div class="card shadow rounded-4 border-dark position-relative mt-5" style="width: 80%; justify-self: center;">
+    <div
+        class="position-absolute start-50 bg-danger text-white border border-dark rounded px-4 py-2"
+        style="transform: translate(-50%, -50%);">
+        <h3 class="mb-0 fs-6 fw-normal">Delete Category</h3>
+    </div>
+
+    <div class="card-body text-center mt-4">
+        <form method="post" class="row g-3">
+            <input asp-for="Id" hidden/>
+
+            <div class="form-floating col-md-12">
+                <input asp-for="Name" class="form-control shadow" disabled/>
+                <label asp-for="Name">Category Name</label>
+            </div>
+
+            <div class="form-floating col-md-12">
+                <input asp-for="DisplayOrder" class="form-control shadow" disabled/>
+                <label asp-for="DisplayOrder">Display Order</label>
+            </div>
+
+            <div class="row g-3 mt-3">
+                <div class="col-12 col-md-6">
+                    <button type="submit" class="btn btn-danger w-100">Delete</button>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a asp-controller="Category" asp-action="Index"
+                       class="btn btn-outline-primary w-100">Back to list</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
