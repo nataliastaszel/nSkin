@@ -1,0 +1,59 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<PromoCode>
+
+<div class="card shadow mt-5 rounded-5 border-dark position-relative"
+     style="width: 80%; justify-self: center;">
+    <div
+        class="position-absolute start-50 bg-primary-subtle text-dark border border-dark rounded px-4 py-2"
+        style="transform: translate(-50%, -50%);">
+        <h3 class="mb-0 fs-6 fw-normal">Promo Code List</h3>
+    </div>
+    <div class="card-body p-4">
+        <div class="container">
+            <div class="row pb-3">
+                <div class=" text-end">
+                    <a asp-controller="PromoCode" asp-action="Upsert" class="btn btn-dark">
+                        <i class="bi bi-plus-circle m-1"></i> Create New Promo Code
+                    </a>
+                </div>
+            </div>
+            <table class="table text-center ">
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Discount Amount</th>
+                    <th>Expiry date</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var PromoCode in Model)
+                {
+                    <tr>
+                        <td>@PromoCode.Code</td>
+                        <td>@PromoCode.DiscountAmount.ToString("C", new CultureInfo("en-US"))</td>
+                        <td>@PromoCode.ExpiryDate</td>
+                        <td>@PromoCode.IsActive</td>
+                        <td class="d-flex justify-content-center align-items-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="PromoCode" asp-action="Upsert" asp-route-id="@PromoCode.Id"
+                                   class="btn btn-dark"> <i
+                                        class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a asp-controller="PromoCode" asp-action="Delete" asp-route-id="@PromoCode.Id"
+                                   class="btn btn-danger mx-1"> <i
+                                        class="bi bi-trash3-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

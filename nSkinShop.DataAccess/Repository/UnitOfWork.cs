@@ -9,6 +9,7 @@ public class UnitOfWork : IUnitOfWork
     public IProductRepository Product { get; private set; }
 
     public ICompanyRepository Company { get; private set; }
+    public IPromoCodeRepository PromoCode { get; private set; }
 
     public UnitOfWork(ApplicationDbContext db)
     {
@@ -16,6 +17,7 @@ public class UnitOfWork : IUnitOfWork
         Category = new CategoryRepository(_db);
         Product = new ProductRepository(_db);
         Company = new CompanyRepository(_db);
+        PromoCode = new PromoCodeRepository(_db);
     }
 
     public void Save()

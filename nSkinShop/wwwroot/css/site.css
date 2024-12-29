@@ -38,6 +38,14 @@ body {
     --bs-dark-light: #dea794 !important;
 }
 
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    height: 100vh; 
+    z-index: 1030; 
+    overflow-y: auto; 
+}
+
 .custom-nav-pills .nav-link {
     color: var(--bs-dark);
     border-radius: 5px;

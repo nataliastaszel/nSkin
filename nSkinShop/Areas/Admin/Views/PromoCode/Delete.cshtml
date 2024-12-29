@@ -1,0 +1,53 @@
+@model PromoCode
+
+<div class="card shadow rounded-4 border-dark position-relative mt-5" style="width: 80%; justify-self: center;">
+    <div
+        class="position-absolute start-50 bg-danger text-white border border-dark rounded px-4 py-2"
+        style="transform: translate(-50%, -50%);">
+        <h3 class="mb-0 fs-6 fw-normal">Delete Promo code</h3>
+    </div>
+
+    <div class="card-body text-center mt-4">
+        <form method="post" class="row g-3">
+            <input asp-for="Id" hidden/>
+
+            <div class="row g-3 col-12">
+                <div class="form-floating col-md-6">
+                    <input asp-for="Code" disabled class="form-control shadow"/>
+                    <label asp-for="Code">Promo code</label>
+                </div>
+
+                <div class="form-floating col-md-6">
+                    <input asp-for="DiscountAmount" disabled class="form-control shadow"/>
+                    <label asp-for="DiscountAmount">Discount amount</label>
+                </div>
+            </div>
+
+            <div class="row g-3 col-12">
+                <div class="form-floating col-md-6">
+                    <textarea asp-for="ExpiryDate" disabled class="form-control shadow"></textarea>
+                    <label asp-for="ExpiryDate">Expiry date</label>
+                </div>
+
+                <div class="form-floating col-md-6">
+                    <input asp-for="IsActive" disabled class="form-control shadow"/>
+                    <label asp-for="IsActive">Active</label>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-3">
+                <div class="col-12 col-md-6">
+                    <button type="submit" class="btn btn-danger w-100">Delete</button>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a asp-controller="PromoCode" asp-action="Index"
+                       class="btn btn-outline-primary w-100">Back to list</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}
