@@ -18,9 +18,14 @@ public class Repository<T> : IRepository<T> where T : class
     }
 
 
-    public IEnumerable<T> GetAll(string? includeProperties = null)
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
         if (!String.IsNullOrEmpty(includeProperties))
         {
             foreach (var includeProperty in includeProperties.Split([','],
@@ -38,7 +43,7 @@ public class Repository<T> : IRepository<T> where T : class
         IQueryable<T> query = dbSet;
         if (!String.IsNullOrEmpty(includeProperties))
         {
-            foreach (var includeProperty in includeProperties.Split([','],
+            foreach (var includeProperty in includeProperties.Split(new[] { ',' },
                          StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);

@@ -1,10 +1,11 @@
 using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using nSkinShop.DataAccess.Repository;
 using nSkinShop.Models;
 
-namespace nSkinShop.Controllers;
+namespace nSkinShop.Areas.Customer.Controllers;
 
 [Area("Customer")]
 public class HomeController : Controller
@@ -20,14 +21,64 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        List<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-        return View(ProductList);
+        var productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+        return View(productList);
     }
 
     public IActionResult Details(int productId)
     {
-        Product product = _unitOfWork.Product.Get(product => product.Id == productId, includeProperties: "Category");
-        return View(product);
+        var product = _unitOfWork.Product.Get(p => p.Id == productId, includeProperties: "Category");
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var shoppingCart = new ShoppingCart
+        {
+            Product = product,
+            ProductId = productId,
+            Quantity = 1
+        };
+
+        return View(shoppingCart);
+    }
+
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public IActionResult Details(ShoppingCart shoppingCart)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(shoppingCart);
+        }
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
+        shoppingCart.ApplicationUserId = userId;
+
+        var existingCart = _unitOfWork.ShoppingCart.Get(cart =>
+            cart.ApplicationUserId == userId && cart.ProductId == shoppingCart.ProductId);
+
+        if (existingCart != null)
+        {
+            existingCart.Quantity += shoppingCart.Quantity;
+            _unitOfWork.ShoppingCart.Update(existingCart);
+        }
+        else
+        {
+            _unitOfWork.ShoppingCart.Add(shoppingCart);
+        }
+
+        _unitOfWork.Save();
+        TempData["success"] = "Product added to cart";
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()
@@ -38,6 +89,9 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        });
     }
 }

@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using nSkinShop.DataAccess.Repository;
 using nSkinShop.Models;
-using nSkinShop.Models.ViewModels;
 using nSkinShop.Utility;
 
-namespace nSkinShop;
+namespace nSkinShop.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]
@@ -19,79 +17,67 @@ public class CompanyController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public ActionResult Index()
+    public IActionResult Index()
     {
-        List<Company> CompanyList = _unitOfWork.Company.GetAll().ToList();
-
-        return View(CompanyList);
+        var companyList = _unitOfWork.Company.GetAll().ToList();
+        return View(companyList);
     }
 
-    public ActionResult Upsert(int? id)
+    public IActionResult Upsert(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return View(new Company());
-        }
-        else
-        {
-            Company company = _unitOfWork.Company.Get(company => company.Id == id);
-            return View(company);
-        }
+        var company = id == null || id == 0 
+            ? new Company() 
+            : _unitOfWork.Company.Get(c => c.Id == id) ?? new Company();
+
+        return View(company);
     }
 
     [HttpPost]
-    public ActionResult Upsert(Company company)
+    [ValidateAntiForgeryToken]
+    public IActionResult Upsert(Company company)
     {
-        if (ModelState.IsValid)
-        {
-            if (company.Id == 0)
-            {
-                _unitOfWork.Company.Add(company);
-                TempData["success"] = "Company created successfully";
-            }
-            else
-            {
-                _unitOfWork.Company.Update(company);
-                TempData["success"] = "Company updated successfully";
-            }
+        if (!ModelState.IsValid) return View(company);
 
-            _unitOfWork.Save();
-            return RedirectToAction("Index");
+        if (company.Id == 0)
+        {
+            _unitOfWork.Company.Add(company);
+            TempData["success"] = "Company created successfully";
         }
         else
         {
-            return View(company);
+            _unitOfWork.Company.Update(company);
+            TempData["success"] = "Company updated successfully";
         }
+
+        _unitOfWork.Save();
+        return RedirectToAction(nameof(Index));
     }
 
-    public ActionResult Delete(int? id)
+    public IActionResult Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-
-        Company? company = _unitOfWork.Company.Get(company => company.Id == id);
-        if (company == null)
-        {
-            return NotFound();
-        }
+        var company = GetCompanyById(id);
+        if (company == null) return NotFound();
 
         return View(company);
     }
 
     [HttpPost, ActionName("Delete")]
-    public ActionResult DeletePOST(int? id)
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int? id)
     {
-        Company? company = _unitOfWork.Company.Get(company => company.Id == id);
-        if (company == null)
-        {
-            return NotFound();
-        }
+        var company = GetCompanyById(id);
+        if (company == null) return NotFound();
 
         _unitOfWork.Company.Remove(company);
         _unitOfWork.Save();
         TempData["success"] = "Company deleted successfully";
-        return RedirectToAction("Index");
+
+        return RedirectToAction(nameof(Index));
+    }
+    
+    private Company? GetCompanyById(int? id)
+    {
+        if (id == null || id == 0) return null;
+        return _unitOfWork.Company.Get(c => c.Id == id);
     }
 }

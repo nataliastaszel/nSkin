@@ -19,7 +19,7 @@ public class ApplicationUser : IdentityUser
 
     [PersonalData]
     [DisplayName("Postal Code")]
-    public string? ZipCode { get; set; }
+    public string? PostalCode { get; set; }
 
     public int? CompanyId { get; set; }
 

@@ -69,7 +69,7 @@ namespace nSkinShop.Areas.Identity.Pages.Account.Manage
                 StreetAddress = user.StreetAddress,
                 City = user.City,
                 State = user.State,
-                ZipCode = user.ZipCode
+                ZipCode = user.PostalCode
                 
             };
         }
@@ -105,7 +105,7 @@ namespace nSkinShop.Areas.Identity.Pages.Account.Manage
             user.StreetAddress = Input.StreetAddress;
             user.City = Input.City;
             user.State = Input.State;
-            user.ZipCode = Input.ZipCode;
+            user.PostalCode = Input.ZipCode;
             
             
             var updateResult = await _userManager.UpdateAsync(user);

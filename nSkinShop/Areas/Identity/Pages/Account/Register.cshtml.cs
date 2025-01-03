@@ -169,7 +169,7 @@ namespace nSkinShop.Areas.Identity.Pages.Account
                 user.StreetAddress = Input.StreetAddress;
                 user.City = Input.City;
                 user.State = Input.State;
-                user.ZipCode = Input.ZipCode;
+                user.PostalCode = Input.ZipCode;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.Name = Input.Name;
 

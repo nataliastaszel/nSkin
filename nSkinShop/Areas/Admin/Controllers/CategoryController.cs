@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
-using nSkinShop.Data;
 using nSkinShop.DataAccess.Repository;
 using nSkinShop.Models;
 using nSkinShop.Utility;
 
-namespace nSkinShop
+namespace nSkinShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
@@ -19,95 +17,87 @@ namespace nSkinShop
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            List<Category> CategoryList = _unitOfWork.Category.GetAll().ToList();
-            return View(CategoryList);
+            var categoryList = _unitOfWork.Category.GetAll().ToList();
+            return View(categoryList);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public ActionResult Create(Category category)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category category)
         {
-            if (category.Name == category.DisplayOrder.ToString())
+            if (IsInvalidCategory(category))
             {
-                ModelState.AddModelError("Name", "The display order cannot exactly match the Name");
+                return View(category);
             }
 
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Category.Add(category);
-                _unitOfWork.Save();
-                TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
-            }
-
-            return View(category);
+            _unitOfWork.Category.Add(category);
+            _unitOfWork.Save();
+            TempData["success"] = "Category created successfully";
+            return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
+            var category = GetCategoryById(id);
+            if (category == null) return NotFound();
 
-            Category? category = _unitOfWork.Category.Get(category => category.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            
             return View(category);
         }
 
         [HttpPost]
-        public ActionResult Edit(Category category)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
         {
-            if (ModelState.IsValid)
+            if (IsInvalidCategory(category))
             {
-                _unitOfWork.Category.Update(category);
-                _unitOfWork.Save();
-                TempData["success"] = "Category updated successfully";
-                return RedirectToAction("Index");
+                return View(category);
             }
 
-            return View(category);
+            _unitOfWork.Category.Update(category);
+            _unitOfWork.Save();
+            TempData["success"] = "Category updated successfully";
+            return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Category? category = _unitOfWork.Category.Get(category => category.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = GetCategoryById(id);
+            if (category == null) return NotFound();
 
             return View(category);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeletePOST(int? id)
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int? id)
         {
-            Category? category = _unitOfWork.Category.Get(category => category.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = GetCategoryById(id);
+            if (category == null) return NotFound();
 
             _unitOfWork.Category.Remove(category);
-            TempData["success"] = "Category deleted successfully";
             _unitOfWork.Save();
-            return RedirectToAction("Index");
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction(nameof(Index));
+        }
+        
+        private Category? GetCategoryById(int? id)
+        {
+            if (id == null || id == 0) return null;
+            return _unitOfWork.Category.Get(c => c.Id == id);
+        }
+
+        private bool IsInvalidCategory(Category category)
+        {
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name", "The display order cannot exactly match the Name");
+                return true;
+            }
+            return !ModelState.IsValid;
         }
     }
 }

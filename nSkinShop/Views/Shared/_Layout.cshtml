@@ -22,7 +22,7 @@
 
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sticky-nav" style="min-width: 240px">
             <div class="d-flex flex-column align-items-start px-3 pt-2 text-white ">
-                
+
                 <nav class="navbar  navbar-dark bg-dark border-bottom mb-2 company-name-hover">
                     <div class="container-fluid justify-content-center mb-1">
                         <div class="d-flex align-items-center bg-secondary px-4 py-2 rounded">
@@ -52,7 +52,7 @@
                             <i class="fs-5 bi-lock-fill"></i> <span class="ms-1">Privacy</span>
                         </a>
                     </li>
-                    
+
                     @if (User.IsInRole(SD.Role_Admin))
                     {
                         <li>
@@ -94,13 +94,20 @@
                             </ul>
                         </li>
                     }
-                    
+                   
+                        <li class="nav-item">
+                            <a class="nav-link px-0 text-secondary d-flex align-items-center" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                <i class="fs-5 bi bi-cart-fill me-2"></i>
+                                <span>Cart</span>
+                            </a>
+                        </li>
+
                 </ul>
                 <hr>
                 <div>
                     <partial name="_LoginPartial"/>
                 </div>
-                
+
             </div>
         </div>
 

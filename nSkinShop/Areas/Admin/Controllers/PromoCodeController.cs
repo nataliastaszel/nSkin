@@ -1,97 +1,88 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using nSkinShop.DataAccess.Repository;
 using nSkinShop.Models;
-using nSkinShop.Models.ViewModels;
 using nSkinShop.Utility;
 
-namespace nSkinShop;
+namespace nSkinShop.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]
 public class PromoCodeController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+
     public PromoCodeController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public ActionResult Index()
+    public IActionResult Index()
     {
-        List<PromoCode> PromoCodesList = _unitOfWork.PromoCode.GetAll().ToList();
-       
-        return View(PromoCodesList);
+        var promoCodesList = _unitOfWork.PromoCode.GetAll().ToList();
+        return View(promoCodesList);
     }
 
-    public ActionResult Upsert(int? id)
+    public IActionResult Upsert(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return View(new PromoCode());
-        }
-        else
-        {
-            PromoCode promoCode = _unitOfWork.PromoCode.Get(promoCode => promoCode.Id == id);
-            return View(promoCode);
-        }
+        var promoCode = id == null || id == 0
+            ? new PromoCode()
+            : GetPromoCodeById(id);
+
+        if (promoCode == null) return NotFound();
+
+        return View(promoCode);
     }
 
     [HttpPost]
-    public ActionResult Upsert(PromoCode promoCode)
+    [ValidateAntiForgeryToken]
+    public IActionResult Upsert(PromoCode promoCode)
     {
-        if (ModelState.IsValid)
-        {
-            if (promoCode.Id == 0)
-            {
-                _unitOfWork.PromoCode.Add(promoCode);
-                TempData["success"] = "Promo code created successfully";
-            }
-            else
-            {
-                _unitOfWork.PromoCode.Update(promoCode);
-                TempData["success"] = "Promo code updated successfully";
-            }
-
-            _unitOfWork.Save();
-            return RedirectToAction("Index");
-        }
-        else
+        if (!ModelState.IsValid)
         {
             return View(promoCode);
         }
+
+        if (promoCode.Id == 0)
+        {
+            _unitOfWork.PromoCode.Add(promoCode);
+            TempData["success"] = "Promo code created successfully";
+        }
+        else
+        {
+            _unitOfWork.PromoCode.Update(promoCode);
+            TempData["success"] = "Promo code updated successfully";
+        }
+
+        _unitOfWork.Save();
+        return RedirectToAction(nameof(Index));
     }
 
-    public ActionResult Delete(int? id)
+    public IActionResult Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-
-        PromoCode? promoCode = _unitOfWork.PromoCode.Get(promoCode => promoCode.Id == id);
-        if (promoCode == null)
-        {
-            return NotFound();
-        }
+        var promoCode = GetPromoCodeById(id);
+        if (promoCode == null) return NotFound();
 
         return View(promoCode);
     }
 
     [HttpPost, ActionName("Delete")]
-    public ActionResult DeletePOST(int? id)
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int? id)
     {
-        PromoCode? promoCode = _unitOfWork.PromoCode.Get(promoCode => promoCode.Id == id);
-        if (promoCode == null)
-        {
-            return NotFound();
-        }
+        var promoCode = GetPromoCodeById(id);
+        if (promoCode == null) return NotFound();
 
         _unitOfWork.PromoCode.Remove(promoCode);
         _unitOfWork.Save();
         TempData["success"] = "Promo code deleted successfully";
-        return RedirectToAction("Index");
+
+        return RedirectToAction(nameof(Index));
+    }
+    
+    private PromoCode? GetPromoCodeById(int? id)
+    {
+        if (id == null || id == 0) return null;
+        return _unitOfWork.PromoCode.Get(p => p.Id == id);
     }
 }
-    

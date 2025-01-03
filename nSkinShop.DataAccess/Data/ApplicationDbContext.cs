@@ -13,12 +13,14 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
-    
+
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<Company> Companies { get; set; }
-    
+
     public DbSet<ShoppingCart> ShoppingCarts { get; set; }
     public DbSet<PromoCode> PromoCodes { get; set; }
+    public DbSet<OrderHeader> OrderHeaders { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -83,11 +85,11 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
             },
             new Product()
             {
-                Id = 6, 
-                Brand = "Clarins", 
-                Title = "Soothing After Sun Balm", 
+                Id = 6,
+                Brand = "Clarins",
+                Title = "Soothing After Sun Balm",
                 Description = "After sun care",
-                Price = 34.46, 
+                Price = 34.46,
                 Price100ml = 76.55,
                 CategoryId = 3,
                 ImageUrl = ""
