@@ -134,7 +134,7 @@ public class CartController : Controller
         var applicationUser = _unitOfWork.ApplicationUser.Get(user => user.Id == UserId);
 
         shoppingCartVM.OrderHeader.ApplicationUserId = UserId;
-        shoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+        shoppingCartVM.OrderHeader.OrderDate = DateTime.UtcNow;
         shoppingCartVM.OrderHeader.TotalPrice = CalculateTotalPrice(shoppingCartVM.ShoppingCartList);
 
         shoppingCartVM.OrderHeader.Name ??= applicationUser?.Name;

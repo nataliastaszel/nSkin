@@ -1,5 +1,6 @@
-
-@inject SignInManager<IdentityUser> SignInManager
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using nSkinShop.Models
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

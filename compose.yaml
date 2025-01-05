@@ -1,0 +1,29 @@
+﻿services:
+  nskinshop-app:
+    build:
+      context: .
+      dockerfile: nSkinShop/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      nskinshop-db:
+        condition: service_healthy
+      
+  nskinshop-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: MyStrongPass123
+      POSTGRES_USER: SA
+      POSTGRES_DB: nSkinShop
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U SA -d nSkinShop" ]
+      interval: 10s      
+      timeout: 5s        
+      retries: 5         
+      start_period: 10s  
+    volumes:
+      - ./nSkinShop/wwwroot/images/product:/app/wwwroot/images/product

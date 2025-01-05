@@ -42,6 +42,9 @@ public class PromoCodeController : Controller
         {
             return View(promoCode);
         }
+        
+        promoCode.ExpiryDate = DateTime.SpecifyKind(promoCode.ExpiryDate, DateTimeKind.Utc);
+
 
         if (promoCode.Id == 0)
         {
